@@ -1,6 +1,11 @@
 import cv2 as cv
 import numpy as np
 from PIL import Image
+import easygui
+
+def load_image():
+    image_path = easygui.fileopenbox()
+    return image_path
 
 # check if the image is grayscale
 def is_grey_scale(img_path):
@@ -83,4 +88,3 @@ def normalize(exp_image, color, Cr, Cb):
         image = cv.normalize(exp_image, None, alpha=0, beta=255, norm_type=cv.NORM_MINMAX, dtype=cv.CV_8U)
         image = cv.merge((image, Cr, Cb))
         return cv.cvtColor(image, cv.COLOR_YCrCb2BGR)
-

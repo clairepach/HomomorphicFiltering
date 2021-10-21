@@ -1,14 +1,19 @@
 import sys
 import cv2 as cv
 import numpy as np
+import easygui
 
 # Custom Utilities module
 import Utilities as utl
 
+# dynamically ask for the image to open
+# this is so the program works well on every OS
+imgpath = utl.load_image()
+
 # if image is grayscale continue, otherwise exit
 # Cr, Cb values are gonna be used when we have a YCrCb image
 # otherwise the value is 0
-image, color, Cr, Cb = utl.read_img(sys.argv[1])
+image, color, Cr, Cb = utl.read_img(imgpath)
 
 # log the image
 log_image = utl.log_transform(image)
@@ -67,6 +72,7 @@ while(True):
     cv.imshow("Homomorphic Filter", img_homomorphic)
     k = cv.waitKey(1)
     if k == 27:
-        cv.imwrite('/Users/foteinipachtiti/Desktop/finalthesis/HomomorphicFiltering/result_image.jpg', img_homomorphic)
+        save_path = easygui.filesavebox()
+        cv.imwrite(save_path, img_homomorphic)
         cv.destroyAllWindows()
         break
